@@ -8,4 +8,9 @@ class LibraryOneTest extends Specification {
         expect:
             true
     }
+
+    def 'failing test'() {
+        expect:
+            false
+    }
 }
