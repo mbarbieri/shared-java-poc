@@ -5,11 +5,34 @@ plugins {
     id "jacoco"
 }
 
-apply plugin: "java-library"
-apply plugin: "idea"
-apply plugin: "org.owasp.dependencycheck"
-apply plugin: "jacoco"
+// Configure Java projects, as subprojects block would apply settings to empty parent sub-projects too
+def javaProjects() { return subprojects.findAll { new File(it.projectDir, "src").exists() } }
+configure(javaProjects() + project) {
+    apply plugin: "idea"
+    apply plugin: "groovy"
+    apply plugin: "org.owasp.dependencycheck"
 
+    //apply jacoco only for codeCoverageReport task to avoid extra slowness for regular builds
+    if (project.hasProperty("codeCoverage")) {
+        apply plugin: "jacoco"
+    }
 
-sourceCompatibility = JavaVersion.VERSION_11
-targetCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+
+    archivesBaseName = path.substring(1).replace(":", "-")
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+
+    dependencies {
+        testImplementation 'org.spockframework:spock-core:2.1-groovy-3.0'
+        testImplementation 'org.codehaus.groovy:groovy:3.0.11'
+    }
+}
