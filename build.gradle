@@ -1,0 +1,15 @@
+plugins {
+    id "org.owasp.dependencycheck" version "7.1.1" apply false
+    id "com.google.protobuf" version "0.8.18" apply false
+    id "org.sonarqube" version "3.4.0.2513"
+    id "jacoco"
+}
+
+apply plugin: "java-library"
+apply plugin: "idea"
+apply plugin: "org.owasp.dependencycheck"
+apply plugin: "jacoco"
+
+
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
