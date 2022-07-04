@@ -8,4 +8,9 @@ class CommonModelTest extends Specification {
         expect:
             true
     }
+
+    def 'another test'() {
+        expect:
+            true
+    }
 }
