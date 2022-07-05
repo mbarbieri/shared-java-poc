@@ -3,7 +3,10 @@ plugins {
     id "com.google.protobuf" version "0.8.18" apply false
     id "org.sonarqube" version "3.4.0.2513"
     id "jacoco"
+    id "com.dropbox.affectedmoduledetector" version "0.1.5"
 }
+
+apply plugin: "com.dropbox.affectedmoduledetector"
 
 // Configure Java projects, as subprojects block would apply settings to empty parent sub-projects too
 def javaProjects() { return subprojects.findAll { new File(it.projectDir, "src").exists() } }
@@ -35,4 +38,14 @@ configure(javaProjects() + project) {
         testImplementation 'org.spockframework:spock-core:2.1-groovy-3.0'
         testImplementation 'org.codehaus.groovy:groovy:3.0.11'
     }
+
+
+    affectedModuleDetector {
+        logFilename = "affectedModule.log"
+        logFolder = "${project.rootDir}"
+        compareFrom = "PreviousCommit" //default is PreviousCommit
+        includeUncommitted = false
+    }
+
 }
+
