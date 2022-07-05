@@ -43,8 +43,7 @@ configure(javaProjects() + project) {
     affectedModuleDetector {
         logFilename = "affectedModule.log"
         logFolder = "${project.rootDir}"
-        compareFrom = "PreviousCommit" //default is PreviousCommit
-        includeUncommitted = false
+        compareFrom = "ForkCommit" //default is PreviousCommit
     }
 
 }
