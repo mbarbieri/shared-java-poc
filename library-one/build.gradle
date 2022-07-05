@@ -3,3 +3,5 @@ apply plugin: 'java-library'
 dependencies {
     api(project(':commons'))
 }
+
+version = '0.1.0'
