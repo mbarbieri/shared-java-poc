@@ -4,7 +4,7 @@ import commons.CommonModel;
 
 public class LibraryOne {
 
-    private static final int i = 0;
+    private static final int i = 1;
 
     public static void main(String[] args) {
         new CommonModel();
