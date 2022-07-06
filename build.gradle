@@ -8,8 +8,16 @@ plugins {
 
 apply plugin: "com.dropbox.affectedmoduledetector"
 
+affectedModuleDetector {
+    logFilename = "affectedModule.log"
+    logFolder = "${project.rootDir}"
+    compareFrom = "PreviousCommit" //default is PreviousCommit, should be ForkCommit for branches
+    includeUncommitted = false // only for testing
+}
+
 // Configure Java projects, as subprojects block would apply settings to empty parent sub-projects too
 def javaProjects() { return subprojects.findAll { new File(it.projectDir, "src").exists() } }
+
 configure(javaProjects() + project) {
     apply plugin: "idea"
     apply plugin: "groovy"
@@ -37,14 +45,6 @@ configure(javaProjects() + project) {
     dependencies {
         testImplementation 'org.spockframework:spock-core:2.1-groovy-3.0'
         testImplementation 'org.codehaus.groovy:groovy:3.0.11'
-    }
-
-
-    affectedModuleDetector {
-        logFilename = "affectedModule.log"
-        logFolder = "${project.rootDir}"
-        compareFrom = "PreviousCommit" //default is PreviousCommit, should be ForkCommit for branches
-        includeUncommitted = false // only for testing
     }
 
 }
